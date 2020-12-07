@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>矢量切片与栅格切片的认知 | 哲士</title>
+    <meta name="generator" content="VuePress 1.7.1">
+    <link rel="icon" href="/img/favicon.ico">
+    <meta name="description" content="地理信息人">
+    
+    <link rel="preload" href="/assets/css/0.styles.101e93c3.css" as="style"><link rel="preload" href="/assets/js/app.1f22362a.js" as="script"><link rel="preload" href="/assets/js/2.6f24bad2.js" as="script"><link rel="preload" href="/assets/js/25.72f1bd9f.js" as="script"><link rel="prefetch" href="/assets/js/10.cedc8259.js"><link rel="prefetch" href="/assets/js/11.c5e6b7cf.js"><link rel="prefetch" href="/assets/js/12.50167f40.js"><link rel="prefetch" href="/assets/js/13.dc241e6c.js"><link rel="prefetch" href="/assets/js/14.535a0c30.js"><link rel="prefetch" href="/assets/js/15.3d6642d6.js"><link rel="prefetch" href="/assets/js/16.1312f6b3.js"><link rel="prefetch" href="/assets/js/17.48f2a90b.js"><link rel="prefetch" href="/assets/js/18.ffe520bf.js"><link rel="prefetch" href="/assets/js/19.2af6e42d.js"><link rel="prefetch" href="/assets/js/20.519319cc.js"><link rel="prefetch" href="/assets/js/21.2ab2166a.js"><link rel="prefetch" href="/assets/js/22.4a0a5896.js"><link rel="prefetch" href="/assets/js/23.77a67de9.js"><link rel="prefetch" href="/assets/js/24.c5e4a948.js"><link rel="prefetch" href="/assets/js/3.3a09292b.js"><link rel="prefetch" href="/assets/js/4.0f1fc6aa.js"><link rel="prefetch" href="/assets/js/5.ccadf297.js"><link rel="prefetch" href="/assets/js/6.2cc0afe6.js"><link rel="prefetch" href="/assets/js/7.cdb003e2.js"><link rel="prefetch" href="/assets/js/8.f6b11dec.js"><link rel="prefetch" href="/assets/js/9.5c7cb6b7.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.101e93c3.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">哲士</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">
+  主页
+</a></div><div class="nav-item"><a href="/article/technology/" class="nav-link router-link-active">
+  技术
+</a></div><div class="nav-item"><a href="/article/daily/" class="nav-link">
+  日志
+</a></div><div class="nav-item"><a href="/article/other/" class="nav-link">
+  其他
+</a></div><div class="nav-item"><a href="/about/" class="nav-link">
+  关于
+</a></div><div class="nav-item"><a href="https://www.github.com/xizher" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">
+  主页
+</a></div><div class="nav-item"><a href="/article/technology/" class="nav-link router-link-active">
+  技术
+</a></div><div class="nav-item"><a href="/article/daily/" class="nav-link">
+  日志
+</a></div><div class="nav-item"><a href="/article/other/" class="nav-link">
+  其他
+</a></div><div class="nav-item"><a href="/about/" class="nav-link">
+  关于
+</a></div><div class="nav-item"><a href="https://www.github.com/xizher" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Vue</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>GIS</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/article/technology/ArcGIS_REST_API操作要素服务.html" class="sidebar-link">ArcGIS REST API操作要素服务</a></li><li><a href="/article/technology/矢量切片与栅格切片的认知.html" class="active sidebar-link">矢量切片与栅格切片的认知</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/article/technology/矢量切片与栅格切片的认知.html#栅格切片-瓦片" class="sidebar-link">栅格切片（瓦片）</a></li><li class="sidebar-sub-header"><a href="/article/technology/矢量切片与栅格切片的认知.html#矢量切片" class="sidebar-link">矢量切片</a></li></ul></li><li><a href="/article/technology/基于nginx的ArcGIS_API_for_JS本地部署及在Vue框架下跨域调用的解决方案.html" class="sidebar-link">基于nginx的ArcGIS API for JS本地部署及在Vue框架下跨域调用的解决方案</a></li><li><a href="/article/technology/大气校正法反演Landsat8影像地表温度.html" class="sidebar-link">大气校正法反演Landsat8影像地表温度</a></li><li><a href="/article/technology/R语言实现栅格块统计算法.html" class="sidebar-link">R语言实现栅格块统计算法</a></li><li><a href="/article/technology/GoogleEarthEngine学习笔记.html" class="sidebar-link">GoogleEarthEngine学习笔记</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>CSS</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>数据库</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>其他</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="矢量切片与栅格切片的认知"><a href="#矢量切片与栅格切片的认知" class="header-anchor">#</a> 矢量切片与栅格切片的认知</h1> <p></p><div class="table-of-contents"><ul><li><a href="#栅格切片-瓦片">栅格切片（瓦片）</a><ul><li><a href="#定义">定义</a></li><li><a href="#优点">优点</a></li><li><a href="#缺点">缺点</a></li><li><a href="#特点">特点</a></li></ul></li><li><a href="#矢量切片">矢量切片</a><ul><li><a href="#定义">定义</a></li><li><a href="#优点">优点</a></li><li><a href="#缺点">缺点</a></li><li><a href="#特点">特点</a></li></ul></li></ul></div><p></p> <blockquote><p>矢量数据，用点、线、面表示，有具体的经纬度坐标可以表示实际位置。比如道路、绿地、以及POI数据等。
+而栅格数据，是以像素为单位，组织成图片的形式来进行表达。例如卫星影像数据、DEM数据等。</p></blockquote> <h2 id="栅格切片-瓦片"><a href="#栅格切片-瓦片" class="header-anchor">#</a> 栅格切片（瓦片）</h2> <h3 id="定义"><a href="#定义" class="header-anchor">#</a> 定义</h3> <ul><li>是针对Web优化大小图像；</li> <li>地图框架和SDK会以正确的顺序放置栅格地图图块，从而生成地图；</li></ul> <h3 id="优点"><a href="#优点" class="header-anchor">#</a> 优点</h3> <ul><li>加载时间成本低，适用于所有类型的设备（台式机和移动设备）以及所有浏览器；</li> <li>在服务器上渲染的栅格地图图块不会在客户端站点上产生性能负载</li></ul> <h3 id="缺点"><a href="#缺点" class="header-anchor">#</a> 缺点</h3> <ul><li>无法在客户端站点上自定义或添加新样式；</li> <li>无法更改标签，在客户端应用程序中显示/隐藏对象；</li> <li>在一段时间内，您可以在地图移动/缩放屏幕上看到空白区域。也就是说，加载所需的瓦片需要花费一些时间；</li></ul> <blockquote><p>在数据量比较小的时候并没有什么大问题，但是在数据量比较大时（例如全国的详细街区数据）存在以下几个问题：</p> <ul><li>首先，同一套数据的展示在不同的需求下可能需要不同的样式（例如，白天和夜间模式）而对于传统栅格切片对此需求必须重新进行切片；</li> <li>第二，由于切片的分辨率固定，分辨率过高切片体积过大，分辨率过低高清屏无法清晰显示；</li> <li>第三，矢量数据的请求如果是按需请求每次都向服务器请求数据加重服务器压力，如果一次请求按需展示，当矢量数据过大时（例如全国的水系数据）对于前端的压力过大</li></ul></blockquote> <h3 id="特点"><a href="#特点" class="header-anchor">#</a> 特点</h3> <ul><li></li></ul> <h2 id="矢量切片"><a href="#矢量切片" class="header-anchor">#</a> 矢量切片</h2> <h3 id="定义-2"><a href="#定义-2" class="header-anchor">#</a> 定义</h3> <ul><li>与栅格图块相比，矢量图块不是图像，而是二进制文件。它们包含在客户端生成映射所需的所有必需信息；</li> <li>矢量图块可快速提供巨大的地图，同时提供充分的设计灵活性。它们相当于用于Web映射的图块的矢量数据，将平铺的优势（为快速缓存，缩放和快速提供地图图像而开发）应用于矢量数据;</li></ul> <h3 id="优点-2"><a href="#优点-2" class="header-anchor">#</a> 优点</h3> <ul><li>可以在客户端应用程序中即时更改地图和标签样式（<u>自由渲染</u>）；</li> <li>磁贴的尺寸非常小，非常适合流式和离线地图；</li> <li>可以平滑地移动地图，放大/缩小地图，而不会延迟渲染；</li></ul> <blockquote><ul><li>与完全渲染的图像图块相比，矢量图块具有两个重要优点：
+<strong>样式</strong>：作为矢量，可以根据要求设置图块的样式，从而允许在全局数据上使用多种地图样式</li> <li><strong>大小</strong>：向量图块非常小，可启用全局高分辨率地图，快速地图加载和有效的缓存</li></ul></blockquote> <h3 id="缺点-2"><a href="#缺点-2" class="header-anchor">#</a> 缺点</h3> <ul><li>渲染发生在客户端，这可能会在速度较慢的设备上造成性能问题；</li> <li>数据量大，访问时会给前端带来太大压力。一般会通过对数据字段进行删减或者对数据进行抽稀，来减少数据的大小（<u>字段删减</u>、<u>数据抽稀</u>）;</li> <li>并非所有的矢量地图SDK都具有移动版本。碰巧某些设备上的可视化效果不正确或太慢；</li> <li><s>目前尚无标准</s>，尚未将您绑定到地图提供者SDK（<strong>有待考证</strong>）；</li> <li></li></ul> <h3 id="特点-2"><a href="#特点-2" class="header-anchor">#</a> 特点</h3> <ul><li>矢量切片底图可以将基础底图和工作数据进行融合，扩展底图的交互性；</li> <li>动态的赋予基础底图样式以及通过配合可交互的工作数据来设计底图样式，根据内容进行智能制图和实时分析并展示在基础地图上；</li></ul></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/article/technology/ArcGIS_REST_API操作要素服务.html" class="prev">
+        ArcGIS REST API操作要素服务
+      </a></span> <span class="next"><a href="/article/technology/基于nginx的ArcGIS_API_for_JS本地部署及在Vue框架下跨域调用的解决方案.html">
+        基于nginx的ArcGIS API for JS本地部署及在Vue框架下跨域调用的解决方案
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.1f22362a.js" defer></script><script src="/assets/js/2.6f24bad2.js" defer></script><script src="/assets/js/25.72f1bd9f.js" defer></script>
+  </body>
+</html>
