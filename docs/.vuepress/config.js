@@ -1,3 +1,8 @@
+const path = require('path')
+const rootPath = path.dirname(__dirname)
+const utils = require('../../utils')
+const fileHelper = require('../../utils/initPage')
+
 const config = {
   title: '哲士',
   description: '地理信息人',
@@ -21,6 +26,9 @@ const config = {
         text: '其他',
         link: '/article/other/'
       }, {
+        text: '资源',
+        link: '/download'
+      }, {
         text: '关于',
         link: '/about/'
       }, {
@@ -29,60 +37,18 @@ const config = {
       },
     ],
     sidebar: {
-      '/article/daily/': [
-        {
-          title: '2020年12月',
-          collapsable: true,
-          children: [
-            ['2020年12月10日', '2020年12月10日'],
-            ['2020年12月8日', '2020年12月8日'],
-            ['2020年12月7日', '2020年12月7日'],
-          ]
-        }
-      ],
+      '/article/daily/': utils.genSidebar('日志', fileHelper.getFileName(`${rootPath}/article/daily/`), false, 1),
       '/article/technology/': [
-        {
-          title: 'Vue',
-          collapsable: true,
-          children: [
-            ['vue3自定义组件v-model使用案例', 'vue3自定义组件v-model使用案例'],
-            ['基于Vue项目的eslint配置', '基于Vue项目的eslint配置'],
-            ['vue项目运行报错GETsockjs-node的解决方案', 'vue项目运行报错GETsockjs-node的解决方案']
-          ]
-        }, {
-          title: 'GIS',
-          collapsable: true,
-          children: [
-            ['ArcGIS_REST_API操作要素服务', 'ArcGIS REST API操作要素服务'],
-            ['矢量切片与栅格切片的认知', '矢量切片与栅格切片的认知'],
-            ['基于nginx的ArcGIS_API_for_JS本地部署及在Vue框架下跨域调用的解决方案', '基于nginx的ArcGIS API for JS本地部署及在Vue框架下跨域调用的解决方案'],
-            ['大气校正法反演Landsat8影像地表温度', '大气校正法反演Landsat8影像地表温度'],
-            ['R语言实现栅格块统计算法', 'R语言实现栅格块统计算法'],
-            ['GoogleEarthEngine学习笔记', 'GoogleEarthEngine学习笔记'],
-          ]
-        }, {
-          title: 'CSS',
-          collapsable: true,
-          children: [
-            ['CSS_flex布局', 'CSS flex布局'],
-            ['CSS点击穿透', 'CSS点击穿透'],
-          ]
-        }, {
-          title: '数据库',
-          collapsable: true,
-          children: [
-            ['数据库备份与还原的流程整理', '数据库备份与还原的流程整理']
-          ]
-        }, {
-          title: '其他',
-          collapsable: true,
-          children: [
-            ['npm包管理与发布', 'npm包管理与发布']
-          ]
-        }
-      ]
+          ...utils.genSidebar('GIS', fileHelper.getFileName(`${rootPath}/article/technology/gis/`).map(item => `./gis/${item}`), true, 1),
+          ...utils.genSidebar('VUE', fileHelper.getFileName(`${rootPath}/article/technology/vue/`).map(item => `./vue/${item}`), true, 1),
+          ...utils.genSidebar('工程化', fileHelper.getFileName(`${rootPath}/article/technology/project/`).map(item => `./project/${item}`), true, 1),
+          ...utils.genSidebar('CSS', fileHelper.getFileName(`${rootPath}/article/technology/css/`).map(item => `./css/${item}`), true, 1),
+          ...utils.genSidebar('数据库', fileHelper.getFileName(`${rootPath}/article/technology/database/`).map(item => `./database/${item}`), true, 1),
+      ],
     }
   }
 }
+
+console.log(config.themeConfig.sidebar['/article/technology/'])
 
 module.exports = config
