@@ -37,7 +37,9 @@ const config = {
       },
     ],
     sidebar: {
-      '/article/daily/': utils.genSidebar('日志', fileHelper.getFileName(`${rootPath}/article/daily/`), false, 1),
+      '/article/daily/': [
+        ...utils.genSidebar('2020月12', fileHelper.getFileName(`${rootPath}/article/daily/2020_12/`).map(item => `./2020_12/${item}`), true, 1)
+      ],
       '/article/technology/': [
           ...utils.genSidebar('GIS', fileHelper.getFileName(`${rootPath}/article/technology/gis/`).map(item => `./gis/${item}`), true, 1),
           ...utils.genSidebar('VUE', fileHelper.getFileName(`${rootPath}/article/technology/vue/`).map(item => `./vue/${item}`), true, 1),
