@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>在Docker中配置Nginx | 哲士</title>
+    <meta name="generator" content="VuePress 1.7.1">
+    <link rel="icon" href="/img/favicon.ico">
+    <meta name="description" content="地理信息人">
+    
+    <link rel="preload" href="/assets/css/0.styles.992cb7aa.css" as="style"><link rel="preload" href="/assets/js/app.65dc19b6.js" as="script"><link rel="preload" href="/assets/js/2.6f24bad2.js" as="script"><link rel="preload" href="/assets/js/30.4bd6b923.js" as="script"><link rel="prefetch" href="/assets/js/10.b328be37.js"><link rel="prefetch" href="/assets/js/11.7237b4d5.js"><link rel="prefetch" href="/assets/js/12.df65c0c2.js"><link rel="prefetch" href="/assets/js/13.5fc3a3e4.js"><link rel="prefetch" href="/assets/js/14.b0453d7d.js"><link rel="prefetch" href="/assets/js/15.867b4b0d.js"><link rel="prefetch" href="/assets/js/16.6f7b4f5b.js"><link rel="prefetch" href="/assets/js/17.33af40f9.js"><link rel="prefetch" href="/assets/js/18.e99c67ec.js"><link rel="prefetch" href="/assets/js/19.6f6932b6.js"><link rel="prefetch" href="/assets/js/20.97b666a4.js"><link rel="prefetch" href="/assets/js/21.6704988e.js"><link rel="prefetch" href="/assets/js/22.b3c9a4d0.js"><link rel="prefetch" href="/assets/js/23.59203243.js"><link rel="prefetch" href="/assets/js/24.442042c4.js"><link rel="prefetch" href="/assets/js/25.e24d83a7.js"><link rel="prefetch" href="/assets/js/26.99b02192.js"><link rel="prefetch" href="/assets/js/27.ee004568.js"><link rel="prefetch" href="/assets/js/28.e882d038.js"><link rel="prefetch" href="/assets/js/29.74598b3a.js"><link rel="prefetch" href="/assets/js/3.1adfc48c.js"><link rel="prefetch" href="/assets/js/31.43e4e446.js"><link rel="prefetch" href="/assets/js/32.d6d1eccc.js"><link rel="prefetch" href="/assets/js/33.b828be49.js"><link rel="prefetch" href="/assets/js/34.9d703d64.js"><link rel="prefetch" href="/assets/js/35.5e9b1cf4.js"><link rel="prefetch" href="/assets/js/36.3b197fe3.js"><link rel="prefetch" href="/assets/js/4.e0652429.js"><link rel="prefetch" href="/assets/js/5.62a68b3b.js"><link rel="prefetch" href="/assets/js/6.2cc0afe6.js"><link rel="prefetch" href="/assets/js/7.42839bd3.js"><link rel="prefetch" href="/assets/js/8.f6b11dec.js"><link rel="prefetch" href="/assets/js/9.71ac8dd8.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.992cb7aa.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">哲士</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">
+  主页
+</a></div><div class="nav-item"><a href="/article/technology/" class="nav-link router-link-active">
+  技术
+</a></div><div class="nav-item"><a href="/article/daily/" class="nav-link">
+  日志
+</a></div><div class="nav-item"><a href="/article/other/" class="nav-link">
+  其他
+</a></div><div class="nav-item"><a href="/download.html" class="nav-link">
+  资源
+</a></div><div class="nav-item"><a href="/about/" class="nav-link">
+  关于
+</a></div><div class="nav-item"><a href="https://www.github.com/xizher" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">
+  主页
+</a></div><div class="nav-item"><a href="/article/technology/" class="nav-link router-link-active">
+  技术
+</a></div><div class="nav-item"><a href="/article/daily/" class="nav-link">
+  日志
+</a></div><div class="nav-item"><a href="/article/other/" class="nav-link">
+  其他
+</a></div><div class="nav-item"><a href="/download.html" class="nav-link">
+  资源
+</a></div><div class="nav-item"><a href="/about/" class="nav-link">
+  关于
+</a></div><div class="nav-item"><a href="https://www.github.com/xizher" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>GIS</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>VUE</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>工程化</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>CSS</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>数据库</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>服务器</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/article/technology/server/docker_useful_command.html" class="sidebar-link">Docker 常用命令</a></li><li><a href="/article/technology/server/install_docker_in_centos.html" class="sidebar-link">在Centos中安装和配置Docker</a></li><li><a href="/article/technology/server/install_nginx_in_centos_with_https.html" class="sidebar-link">在Centos中安装Nginx并配置https</a></li><li><a href="/article/technology/server/install_nginx_in_docker.html" aria-current="page" class="active sidebar-link">在Docker中配置Nginx</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/article/technology/server/window_terminal_connect_to_aliyun_ecs.html" class="sidebar-link">Windows Terminal 远程 连接 阿里云ECS</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="在docker中配置nginx"><a href="#在docker中配置nginx" class="header-anchor">#</a> 在Docker中配置Nginx</h1> <h3 id="_1-下载镜像"><a href="#_1-下载镜像" class="header-anchor">#</a> 1. 下载镜像</h3> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token punctuation">[</span>root@wxz ~<span class="token punctuation">]</span><span class="token comment"># docker pull nginx</span>
+Using default tag: latest
+latest: Pulling from library/nginx
+6ec7b7d162b2: Pull complete
+cb420a90068e: Pull complete
+2766c0bf2b07: Pull complete
+e05167b6a99d: Pull complete
+70ac9d795e79: Pull complete
+Digest: sha256:4cf620a5c81390ee209398ecc18e5fb9dd0f5155cd82adcbae532fec94006fb9
+Status: Downloaded newer image <span class="token keyword">for</span> nginx:latest
+docker.io/library/nginx:latest
+<span class="token punctuation">[</span>root@wxz ~<span class="token punctuation">]</span><span class="token comment"># docker images</span>
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+nginx        latest    ae2feff98a0c   <span class="token number">2</span> weeks ago   133MB
+</code></pre></div><h3 id="_2-运行测试"><a href="#_2-运行测试" class="header-anchor">#</a> 2. 运行测试</h3> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token punctuation">[</span>root@wxz ~<span class="token punctuation">]</span><span class="token comment"># docker run -d --name nginx001 -p 8080:80 nginx</span>
+ac1dcc40753b8a6998e145630e396a3b04a91731b1ca1563db8cf1c11159fdd6
+<span class="token punctuation">[</span>root@wxz ~<span class="token punctuation">]</span><span class="token comment"># docker ps</span>
+CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS         PORTS                  NAMES
+ac1dcc40753b   nginx     <span class="token string">&quot;/docker-entrypoint.…&quot;</span>   <span class="token number">4</span> seconds ago   Up <span class="token number">3</span> seconds   <span class="token number">0.0</span>.0.0:8080-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp   nginx001
+<span class="token punctuation">[</span>root@wxz ~<span class="token punctuation">]</span><span class="token comment"># curl localhost:8080</span>
+<span class="token operator">&lt;</span><span class="token operator">!</span>DOCTYPE html<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>html<span class="token operator">&gt;</span>
+ <span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
+<span class="token operator">&lt;</span>/html<span class="token operator">&gt;</span>
+</code></pre></div><h3 id="_3-测试-进入容器终端"><a href="#_3-测试-进入容器终端" class="header-anchor">#</a> 3. （测试）进入容器终端</h3> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token punctuation">[</span>root@wxz ~<span class="token punctuation">]</span><span class="token comment"># docker exec -it nginx001 /bin/bash</span>
+root@ac1dcc40753b:/<span class="token comment"># whereis nginx</span>
+nginx: /usr/sbin/nginx /usr/lib/nginx /etc/nginx /usr/share/nginx
+root@ac1dcc40753b:/<span class="token comment"># cd /etc/nginx/</span>
+root@ac1dcc40753b:/etc/nginx<span class="token comment"># ls</span>
+conf.d  fastcgi_params  koi-utf  koi-win  mime.types  modules  nginx.conf  scgi_params  uwsgi_params  win-utf
+</code></pre></div><h3 id="_4-路径映射"><a href="#_4-路径映射" class="header-anchor">#</a> 4. 路径映射</h3></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/article/technology/server/install_nginx_in_centos_with_https.html" class="prev">
+        在Centos中安装Nginx并配置https
+      </a></span> <span class="next"><a href="/article/technology/server/window_terminal_connect_to_aliyun_ecs.html">
+        Windows Terminal 远程 连接 阿里云ECS
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.65dc19b6.js" defer></script><script src="/assets/js/2.6f24bad2.js" defer></script><script src="/assets/js/30.4bd6b923.js" defer></script>
+  </body>
+</html>

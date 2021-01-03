@@ -165,3 +165,122 @@ export default {
 ![](https://wuxizheing.oss-cn-beijing.aliyuncs.com/images/20200513220347.png)
 
 ![](https://wuxizheing.oss-cn-beijing.aliyuncs.com/images/20200513221157.png)
+
+## 四、修改sdk样例中的api地址为本地地址
+
+```js
+// --------------------------------------------------------------------
+// update-documentation.js
+//
+// Helper script to replace the link and script tags such as:
+//
+// <link rel="stylesheet" href="https://js.arcgis.com/4.17/esri/themes/light/main.css">
+// <script src="https://js.arcgis.com/4.17/"></script>
+//
+// found in the ArcGIS API For JavaScript SDK Samples
+//
+// Note: requires node version 7.10.0 and npm version 4.2.0 or higher.
+// The glob module is also required, which can be installed using the
+// following command: npm install glob
+// --------------------------------------------------------------------
+let fs                       = require("fs"),
+    path                     = require("path"),
+    util                     = require("util"),
+    // --------------------------------------------------------------------
+    // glob 7.1.1 or higher
+    // https://www.npmjs.com/package/glob
+    // --------------------------------------------------------------------
+    glob                     = require("glob"),
+    // --------------------------------------------------------------------
+    // hostname to replace js.arcgis.com in all the samples such as:
+    // www.example.com
+    // apiDirectory would be the virtual directory in the web server hosting
+    // the ArcGIS API for JavaScript
+    // --------------------------------------------------------------------
+    http                     = "http://"
+    localHost                = "localhost",
+    apiDirectory             = "arcgis/api/4.17",
+    // --------------------------------------------------------------------
+    // path to the downloaded ArcGIS API for JavaScript SDK
+    // download archive contents arcgis_js_v417_sdk/arcgis_js_api/sdk/
+    // to IIS virtual directory C:\Inetpub\wwwroot\arcgis_js_api\sdk
+    // --------------------------------------------------------------------
+    jssdkDownloadLocation    = path.join("C:", "wxz", "src", "ArcGIS", "arcgis_api_js", "sdk", "4.17"),
+    // --------------------------------------------------------------------
+    // Regular expression to match the script tag in the samples such as:
+    // <script src="https://js.arcgis.com/4.17/"></script>
+    // --------------------------------------------------------------------
+    jsapiURLRegEx            = /https:\/\/js\.arcgis\.com\/\d\.\d+\/(?="><\/script>)/m,
+    // --------------------------------------------------------------------
+    // Local url to host the ArcGIS API for JavaScript such as
+    // www.example.com/arcgis_js_api/library/4.17/init.js
+    // --------------------------------------------------------------------
+    jsapiURLLocal            = util.format("%s/%s/%s/dojo/dojo.js", http, localHost, apiDirectory), // util.format("%s/%s/%s/init.js", http, localHost, apiDirectory),
+    // --------------------------------------------------------------------
+    // Regular expression to match the ArcGIS API for JavaScript version
+    // for example: js.arcgis.com/4.17
+    // --------------------------------------------------------------------
+    jsapiURLBaseRegEx        = /https:\/\/js\.arcgis\.com\/\d\.\d+\/?/g,
+    // --------------------------------------------------------------------
+    // base url for the locally hosted ArcGIS API for JavaScript such as:
+    // www.example.com/arcgis_js_api/library/4.17/
+    // --------------------------------------------------------------------
+    jsapiURLBaseLocal        = util.format("%s/%s/%s/", http, localHost, apiDirectory),
+    // --------------------------------------------------------------------
+    // Pattern to match all the live sample code in the ArcGIS API for JavaScript
+    // --------------------------------------------------------------------
+    jsapiSampleCodeLiveFiles = glob.sync(path.join(jssdkDownloadLocation,  "latest", "sample-code", "**", "live", "index.html")),
+    // --------------------------------------------------------------------
+    // Sandbox file containing the CDN link to ArcGIS API for JavaScript
+    // --------------------------------------------------------------------
+    jsapiSandboxFile = path.join(jssdkDownloadLocation, "latest", "sample-code", "sandbox", "index.html");
+
+// --------------------------------------------------------------------
+// 1) Read all the files under sdk_download/sample-code
+// 2) Replace the script src attribute for the locally hosted ArcGIS API for JavaScript
+// 3) Replace the link href attribute for the locally hosted ArcGIS API for JavaScript stylesheet
+// --------------------------------------------------------------------
+
+// --------------------------------------------------------------------
+// Loop over all of the samples and replace their urls
+// --------------------------------------------------------------------
+for (let filePath of jsapiSampleCodeLiveFiles) {
+  console.log("samples - reading %s", filePath);
+  // --------------------------------------------------------------------
+  // Read the sample file contents from disk
+  // --------------------------------------------------------------------
+  let rawContent = fs.readFileSync(filePath, "utf-8");
+  // --------------------------------------------------------------------
+  // Replace the script src attribute for the locally hosted ArcGIS API for JavaScript
+  // Replace the link href attribute for the locally hosted ArcGIS API for JavaScript stylesheet
+  // --------------------------------------------------------------------
+  console.log("samples - replacing link and script tags for %s", filePath);
+  let updatedContent = rawContent.replace(jsapiURLRegEx, jsapiURLLocal).replace(jsapiURLBaseRegEx, jsapiURLBaseLocal);
+  // --------------------------------------------------------------------
+  // Save the sample file contents to disk
+  // --------------------------------------------------------------------
+  console.log("samples - saving %s", filePath);
+  fs.writeFileSync(filePath, updatedContent, "utf-8");
+}
+
+// --------------------------------------------------------------------
+// Read the Sandbox file and replace the ArcGIS API for JavaScript CDN
+// --------------------------------------------------------------------
+
+// --------------------------------------------------------------------
+// Read the Sandbox file contents from disk
+// --------------------------------------------------------------------
+console.log("sandbox - reading %s", jsapiSandboxFile);
+let rawSandboxContent = fs.readFileSync(jsapiSandboxFile, "utf-8");
+// --------------------------------------------------------------------
+// Replace the script src attribute for the locally hosted ArcGIS API for JavaScript
+// --------------------------------------------------------------------
+console.log("sandbox - replacing script tag for %s", jsapiSandboxFile);
+let updatedSandboxContent = rawSandboxContent.replace(jsapiURLBaseRegEx, jsapiURLLocal);
+// --------------------------------------------------------------------
+// Save the Sandbox file contents to disk
+// --------------------------------------------------------------------
+console.log("sandbox - saving %s", jsapiSandboxFile);
+fs.writeFileSync(jsapiSandboxFile, updatedSandboxContent, "utf-8");
+```
+

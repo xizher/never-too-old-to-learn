@@ -23,9 +23,6 @@ const config = {
         text: '日志',
         link: '/article/daily/'
       }, {
-        text: '其他',
-        link: '/article/other/'
-      }, {
         text: '资源',
         link: '/download'
       }, {
@@ -46,6 +43,7 @@ const config = {
           ...utils.genSidebar('工程化', fileHelper.getFileName(`${rootPath}/article/technology/project/`).map(item => `./project/${item}`), true, 1),
           ...utils.genSidebar('CSS', fileHelper.getFileName(`${rootPath}/article/technology/css/`).map(item => `./css/${item}`), true, 1),
           ...utils.genSidebar('数据库', fileHelper.getFileName(`${rootPath}/article/technology/database/`).map(item => `./database/${item}`), true, 1),
+          ...utils.genSidebar('服务器', fileHelper.getFileName(`${rootPath}/article/technology/server/`).map(item => `./server/${item}`), true, 1),
       ],
     }
   }
